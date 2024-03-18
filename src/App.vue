@@ -6,6 +6,10 @@
 
 <script setup lang="ts">
 const str = 'Aiden'
+
+const fun = () => {
+  console.log('试试')
+}
 </script>
 
 <style scoped lang="scss">

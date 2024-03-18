@@ -2,5 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 # 提交到仓库之前会执行下面的命令
 pnpm run format
+# 格式化之后需要在保存一次
 git add .
+
 
