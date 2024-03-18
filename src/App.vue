@@ -1,16 +1,10 @@
 <template>
   <div class="box">
-    <h1>我是App</h1>
+    <h1>新增h1</h1>
   </div>
 </template>
 
-<script setup lang="ts">
-const str = 'Aiden'
-
-const fun = () => {
-  console.log('试试')
-}
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .box {
