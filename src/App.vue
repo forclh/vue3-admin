@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-const str = "Aiden";
+const str = 'Aiden'
 </script>
 
 <style scoped lang="scss">

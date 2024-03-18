@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 # 提交到仓库之前会执行下面的命令
 pnpm run format
-# git add .
+git add .
 
