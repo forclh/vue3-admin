@@ -84,31 +84,39 @@ const login = async () => {
     })
   }
 }
+// 自定义校验规则函数
+const validatorUsername = (rule: any, value: any, callback: any) => {
+  // rule: 校验规则对象
+  // value: 表单元素的文本内容
+  // callback: 校验通过则通过callback方法放行，校验失败则通过callback注入错误提示信息
+  if (/^[A-Za-z0-9]{5,10}$/.test(value)) {
+    callback()
+  } else {
+    callback(new Error('账号长度为5-10位的字母或数字'))
+  }
+}
+const validatorPassword = (rule: any, value: any, callback: any) => {
+  if (value.length >= 6) {
+    callback()
+  } else {
+    callback(new Error('密码长度至少为6位'))
+  }
+}
 // 定义表单校验需要的配置对象
 const rules = {
+  // required: 代表字段必须填写
+  // message: 校验失败的提示信息
+  // trigger: 触犯校验的方式 blur表示失去焦点， change表示字段改变
+  // min: 最短长度
+  // max: 最长长度
   username: [
-    // required: 代表字段必须填写
-    // message: 校验失败的提示信息
-    // trigger: 触犯校验的方式 blur表示失去焦点， change表示字段改变
-    // min: 最短长度
-    // max: 最长长度
-    { required: true, message: '用户名不能为空', trigger: 'blur' },
-    {
-      required: true,
-      min: 5,
-      max: 10,
-      message: '账号长度为6-10位',
-      trigger: 'change',
-    },
+    // { required: true, message: '用户名不能为空', trigger: 'blur' },
+    // { required: true, min: 5, max: 10, message: '账号长度为6-10位', trigger: 'change' },
+    { trigger: 'change', validator: validatorUsername },
   ],
   password: [
-    {
-      required: true,
-      min: 6,
-      max: 15,
-      message: '账号长度为6-15位',
-      trigger: 'change',
-    },
+    // { required: true, min: 6, max: 15, message: '账号长度为6-15位', trigger: 'change' },
+    { trigger: 'change', validator: validatorPassword },
   ],
 }
 </script>
