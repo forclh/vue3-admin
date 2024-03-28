@@ -3,13 +3,18 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form">
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="rules"
+          ref="loginForms"
+        >
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input :prefix-icon="User" v-model="loginForm.username" />
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               type="password"
               :prefix-icon="Lock"
@@ -50,10 +55,14 @@ import useUserStore from '@/store/modules/user.ts'
 let userStore = useUserStore()
 // 获取路由器
 let router = useRouter()
+// 获取el-form表单元素
+let loginForms = ref()
 // 定义变量控制按钮加载效果
 let loading = ref(false)
 // 登录按钮的回调(通过pinia仓库实现)
 const login = async () => {
+  // 在发送请求之前需要保证所有的表单校验字段通过(使用表单自带的validate方法)
+  await loginForms.value.validate()
   loading.value = true // 登录加载效果
   // 1.通知仓库发送请求
   try {
@@ -74,6 +83,33 @@ const login = async () => {
       message: (error as Error).message,
     })
   }
+}
+// 定义表单校验需要的配置对象
+const rules = {
+  username: [
+    // required: 代表字段必须填写
+    // message: 校验失败的提示信息
+    // trigger: 触犯校验的方式 blur表示失去焦点， change表示字段改变
+    // min: 最短长度
+    // max: 最长长度
+    { required: true, message: '用户名不能为空', trigger: 'blur' },
+    {
+      required: true,
+      min: 5,
+      max: 10,
+      message: '账号长度为6-10位',
+      trigger: 'change',
+    },
+  ],
+  password: [
+    {
+      required: true,
+      min: 6,
+      max: 15,
+      message: '账号长度为6-15位',
+      trigger: 'change',
+    },
+  ],
 }
 </script>
 
