@@ -40,6 +40,8 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
+// 引入获取当前时间的函数
+import { getTime } from '@/utils/time.ts'
 
 // 收集账号和密码的数据
 let loginForm = reactive({ username: 'admin', password: '111111' })
@@ -61,7 +63,8 @@ const login = async () => {
     // 登录成功的提示信息
     ElNotification({
       type: 'success',
-      message: '登录成功',
+      message: '欢迎回来',
+      title: `Hi, ${getTime()}好`,
     })
   } catch (error) {
     // 3. 请求失败->弹出登录失败的信息|加载效果消失
